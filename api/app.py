@@ -8,16 +8,21 @@ from PIL import Image
 import numpy as np
 import cStringIO as StringIO
 import json
+from flask import render_template
 
 app = flask.Flask(__name__)
 
-WK_DIR = '/usr/local/image_processing/work/bike_tank/'
+WK_DIR = '/data3/work/shirai/bike/diagnosis/tank_rust/'
 MODEL_DEF = WK_DIR + 'model/deploy.prototxt'
 MODEL = WK_DIR + 'model/tank_net_iter_98000.caffemodel'
 MEAN_FILE = WK_DIR + 'model/mean_train.npy'
 IMAGE_DIM = 227
 RAW_SCALE = 255.
 GPU_MODE = False
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/tank_rust_recognition', methods=['POST'])
 def tank_rust_recognition():
